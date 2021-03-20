@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.2 
+Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2021.03.20 à 07:21:07 PM CET 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://io.org.loic/ws/api_soap_team/domains/soapComponents">
+    <schemaBindings map="false">
+      <package name="loic.org.io.ws.api_soap_team.domains.soapcomponents"/>
+    </schemaBindings>
+    <bindings scd="tns:getPlayerRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.GetPlayerRequest"/>
+    </bindings>
+    <bindings scd="tns:getPlayerResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.GetPlayerResponse"/>
+    </bindings>
+    <bindings scd="~tns:playerSoap">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.PlayerSoap"/>
+    </bindings>
+    <bindings scd="tns:createPlayerRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.CreatePlayerRequest"/>
+    </bindings>
+    <bindings scd="~tns:playerSoapInfo">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.PlayerSoapInfo"/>
+    </bindings>
+    <bindings scd="tns:createPlayerResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.CreatePlayerResponse"/>
+    </bindings>
+    <bindings scd="tns:modifyPlayerRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.ModifyPlayerRequest"/>
+    </bindings>
+    <bindings scd="tns:modifyPlayerResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.ModifyPlayerResponse"/>
+    </bindings>
+    <bindings scd="tns:deletePlayerRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.DeletePlayerRequest"/>
+    </bindings>
+    <bindings scd="tns:deletePlayerResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.DeletePlayerResponse"/>
+    </bindings>
+    <bindings scd="tns:getTeamRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.GetTeamRequest"/>
+    </bindings>
+    <bindings scd="tns:getTeamResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.GetTeamResponse"/>
+    </bindings>
+    <bindings scd="~tns:teamSoap">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.TeamSoap"/>
+    </bindings>
+    <bindings scd="tns:createTeamRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.CreateTeamRequest"/>
+    </bindings>
+    <bindings scd="~tns:teamSoapInfo">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.TeamSoapInfo"/>
+    </bindings>
+    <bindings scd="tns:createTeamResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.CreateTeamResponse"/>
+    </bindings>
+    <bindings scd="tns:modifyTeamRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.ModifyTeamRequest"/>
+    </bindings>
+    <bindings scd="tns:modifyTeamResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.ModifyTeamResponse"/>
+    </bindings>
+    <bindings scd="tns:deleteTeamRequest">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.DeleteTeamRequest"/>
+    </bindings>
+    <bindings scd="tns:deleteTeamResponse">
+      <class ref="loic.org.io.ws.api_soap_team.domains.soapcomponents.DeleteTeamResponse"/>
+    </bindings>
+  </bindings>
+</bindings>
+

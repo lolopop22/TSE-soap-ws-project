@@ -1,0 +1,85 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           	targetNamespace="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
+			xmlns:pns="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
+           	elementFormDefault="qualified">
+	
+	 <xs:complexType name="playerSoapInfo">
+    	<xs:sequence>
+    		<xs:element name="name" type="xs:string"/>
+            <xs:element name="age" type="xs:int"/>
+            <xs:element name="citizenship" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="playerSoap">
+        <xs:sequence>
+        	<xs:element name="pid" type="xs:int"/>
+            <xs:element name="playerSoapInfo" type="pns:playerSoapInfo"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	<xs:element name="getPlayerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="pid" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPlayerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="playerSoap" type="pns:playerSoap" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createPlayerRequest">
+        <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="playerSoapInfo" type="pns:playerSoapInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createPlayerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="playerSoap" type="pns:playerSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="modifyPlayerRequest">
+        <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="playerSoap" type="pns:playerSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="modifyPlayerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="playerSoap" type="pns:playerSoap"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="deletePlayerRequest">
+        <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="pid" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="deletePlayerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deleteResult" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>
