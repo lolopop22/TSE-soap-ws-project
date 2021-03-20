@@ -103,7 +103,6 @@
 					</execution>
 				</executions>
 				<configuration>
-						<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 					<sources>
 						<source>${project.basedir}/src/main/resources/xsdFiles</source>
 					</sources>

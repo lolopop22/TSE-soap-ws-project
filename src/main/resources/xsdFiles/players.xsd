@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-           	targetNamespace="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
-			xmlns:pns="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
+           	targetNamespace="http://loic.org/ws/components"
+			xmlns:pns="http://loic.org/ws/components"
            	elementFormDefault="qualified">
 	
 	 <xs:complexType name="playerSoapInfo">

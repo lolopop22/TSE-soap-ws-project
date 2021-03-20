@@ -1,10 +1,17 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-			xmlns:teams="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
-			xmlns:players="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
-           	targetNamespace="http://io.org.loic/ws/api_soap_team/domains/soapComponents"
+			xmlns:teams="http://loic.org/ws/components"
+			xmlns:players="http://loic.org/ws/components"
+           	targetNamespace="http://loic.org/ws/components"
            	elementFormDefault="qualified">
            	
 	<xs:include schemaLocation="players.xsd"/>
+
+	<xs:complexType name="playerTeamSoap">
+    	<xs:sequence>
+            <xs:element name="playerInfo" type="players:playerSoapInfo"/>
+            <xs:element name="position" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="teamSoapInfo">
     	<xs:sequence>
@@ -13,7 +20,7 @@
             <xs:element name="type" type="xs:string"/>
             <xs:element name="captain" type="xs:string"/>
              <xs:sequence>
-        		<xs:element name="players" type="players:playerSoap" maxOccurs="unbounded"/>
+        		<xs:element name="players" type="teams:playerTeamSoap" maxOccurs="unbounded"/>
     		</xs:sequence>
         </xs:sequence>
     </xs:complexType>
