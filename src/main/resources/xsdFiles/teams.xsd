@@ -8,7 +8,7 @@
 
 	<xs:complexType name="playerTeamSoap">
     	<xs:sequence>
-            <xs:element name="playerInfo" type="players:playerSoapInfo"/>
+            <xs:element name="playerSoapInfo" type="players:playerSoapInfo"/>
             <xs:element name="position" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>

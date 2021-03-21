@@ -14,6 +14,7 @@ import org.loic.ws.components.GetTeamRequest;
 import org.loic.ws.components.GetTeamResponse;
 import org.loic.ws.components.ModifyTeamRequest;
 import org.loic.ws.components.ModifyTeamResponse;
+import org.loic.ws.components.PlayerTeamSoap;
 import org.loic.ws.components.TeamSoap;
 import org.loic.ws_soap_team.services.TeamService;
 
@@ -47,6 +48,10 @@ public class TeamEndpoint {
 	public CreateTeamResponse createTeam(@RequestPayload CreateTeamRequest request) {
 		
 		CreateTeamResponse response = new CreateTeamResponse();
+		System.out.println(request.getTeamSoapInfo().getName());
+		for (PlayerTeamSoap player : request.getTeamSoapInfo().getPlayers()) {
+			System.out.println(player.getPlayerSoapInfo().getName());
+		}
 		response.setTeamSoap(teamService.createTeam(request.getTeamSoapInfo()));
 		
 		return response;

@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.loic.ws.components.TeamSoap;
 import org.loic.ws.components.TeamSoapInfo;
+import org.loic.ws_soap_team.dao.PlayerRepository;
 import org.loic.ws_soap_team.dao.TeamRepository;
+import org.loic.ws_soap_team.domains.PlayerTeamEntity;
 import org.loic.ws_soap_team.domains.TeamEntity;
 import org.loic.ws_soap_team.exceptions.TeamNotFoundException;
 import org.loic.ws_soap_team.services.TeamService;
@@ -23,10 +25,10 @@ public class TeamServiceImpl implements TeamService{
 	@Autowired
 	private TeamTransformer teamConvertor;
 	
-	/*@Autowired
+	@Autowired
 	private PlayerRepository playerRepository;
 	
-	@Override
+	/*@Override
 	@Transactional(readOnly = true)
 	public List<TeamEntity> findAllTeams() {
 		
@@ -54,6 +56,11 @@ public class TeamServiceImpl implements TeamService{
 		
 		TeamEntity newTeamEntity = new TeamEntity();
 		teamConvertor.convertToEntityFormat(teamSoapInfo, newTeamEntity);
+		
+		for(PlayerTeamEntity playerTeamEntity : newTeamEntity.getPlayers()) {
+			this.playerRepository.save(playerTeamEntity.getPlayer());
+		}
+		
 		TeamEntity teamSaved = this.teamRepository.save(newTeamEntity);
 		TeamSoap teamSoap = new TeamSoap();
 		return teamConvertor.convertToSoapFormat(teamSaved, teamSoap);
@@ -64,24 +71,11 @@ public class TeamServiceImpl implements TeamService{
 		
 		Long id = Long.valueOf(newTeamSoap.getTid());
 		TeamEntity team = this.teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException(id));
+		teamConvertor.convertToEntityFormat(newTeamSoap.getTeamSoapInfo(), team);
 		
 		if (team != null) {
-			String newName = newTeamSoap.getTeamSoapInfo().getName();
-			String newCountry = newTeamSoap.getTeamSoapInfo().getCountry();
-			String newType = newTeamSoap.getTeamSoapInfo().getType();
-			String newCaptain = newTeamSoap.getTeamSoapInfo().getCaptain();
-			
-			if (newName != null) {
-				team.setName(newName);
-			}
-			if (newCountry != null) {
-				team.setCountry(newCountry);
-			}
-			if (newType != null) {
-				team.setType(newType);
-			}
-			if (newCaptain != null) {
-				team.setCaptain(newCaptain);
+			for(PlayerTeamEntity playerTeamEntity : team.getPlayers()) {
+				this.playerRepository.save(playerTeamEntity.getPlayer());
 			}
 			
 			return teamConvertor.convertToSoapFormat(this.teamRepository.save(team), newTeamSoap);
