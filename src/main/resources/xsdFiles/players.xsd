@@ -67,7 +67,7 @@
     <xs:element name="modifyPlayerRequest">
         <xs:complexType>
             <xs:sequence>
-            	<xs:element name="playerSoap" type="players:playerSoap"/>
+            	<xs:element name="playerSoapInfo" type="players:playerSoapInfo"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

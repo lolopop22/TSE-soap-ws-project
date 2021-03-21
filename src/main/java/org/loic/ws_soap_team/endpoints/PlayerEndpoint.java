@@ -14,7 +14,6 @@ import org.loic.ws.components.GetPlayerRequest;
 import org.loic.ws.components.GetPlayerResponse;
 import org.loic.ws.components.ModifyPlayerRequest;
 import org.loic.ws.components.ModifyPlayerResponse;
-import org.loic.ws.components.PlayerTeamSoap;
 import org.loic.ws.components.PlayerSoap;
 import org.loic.ws_soap_team.services.PlayerService;
 
@@ -49,20 +48,18 @@ public class PlayerEndpoint {
 		
 		CreatePlayerResponse response = new CreatePlayerResponse();
 		System.out.println(request.getPlayerSoapInfo().getName());
-		for (PlayerTeamSoap player : request.getPlayerSoapInfo().getPlayers()) {
-			System.out.println(player.getPlayerSoapInfo().getName());
-		}
 		response.setPlayerSoap(playerService.createPlayer(request.getPlayerSoapInfo()));
 		
 		return response;
 	}
 	
-	/*@PayloadRoot(namespace = NAMESPACE_URI, localPart = "modifyPlayerRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "modifyPlayerRequest")
 	@ResponsePayload
 	public ModifyPlayerResponse modifyPlayer(@RequestPayload ModifyPlayerRequest request) {
 		
 		ModifyPlayerResponse response = new ModifyPlayerResponse();
-		response.setPlayerSoap(playerService.modifyPlayer(request.getPlayerSoap()));
+		Long id =Long.valueOf(request.getPlayerSoapInfo().getPid());
+		response.setPlayerSoap(playerService.modifyPlayer(request.getPlayerSoapInfo(), id));
 		
 		return response;
 	}
@@ -71,12 +68,12 @@ public class PlayerEndpoint {
 	@ResponsePayload
 	public DeletePlayerResponse deletePlayer(@RequestPayload DeletePlayerRequest request) {
 		
-		long id = Long.valueOf(request.getTid());
+		long id = Long.valueOf(request.getPid());
 		DeletePlayerResponse response = new DeletePlayerResponse();
 		response.setDeleteResult(playerService.deletePlayer(id));
 		
 		return response;
-	}*/
+	}
 	
 
 }

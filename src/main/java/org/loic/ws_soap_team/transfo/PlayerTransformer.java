@@ -3,10 +3,15 @@ package org.loic.ws_soap_team.transfo;
 import org.loic.ws.components.PlayerSoap;
 import org.loic.ws.components.PlayerSoapInfo;
 import org.loic.ws_soap_team.domains.PlayerEntity;
+import org.loic.ws_soap_team.domains.PlayerTeamEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PlayerTransformer {
+	
+	@Autowired
+	private TeamPlayerTransformer teamPlayerConvertor;
 	
 	public PlayerSoap convertToSoapFormat(PlayerEntity playerEntity) {
 		
@@ -19,9 +24,17 @@ public class PlayerTransformer {
 			playerSoap.setPid(pId);
 		}
 		
+		playerSoapInfo.setPid(pId);
 		playerSoapInfo.setName(playerEntity.getName());
 		playerSoapInfo.setAge(playerEntity.getAge());
 		playerSoapInfo.setCitizenship(playerEntity.getCitizenship());
+		
+		if(playerEntity.getTeams() != null) {
+			for(PlayerTeamEntity player : playerEntity.getTeams()) {
+				//PlayerTeamSoap playerTeamSoap = new PlayerTeamSoap();
+				playerSoap.getTeams().add(this.teamPlayerConvertor.convertToSoapFormat(player));
+			}
+		}
 		
 		playerSoap.setPlayerSoapInfo(playerSoapInfo);
 		

@@ -43,7 +43,7 @@ public class TeamServiceImpl implements TeamService{
 		System.out.println("team found in team sevice impl: " + teamEntity);
 		
 		if (teamEntity != null) {
-			TeamSoap teamSoap = teamConvertor.convertToSoapFormat(teamEntity);
+			TeamSoap teamSoap = this.teamConvertor.convertToSoapFormat(teamEntity);
 			return teamSoap;
 		}
 		
@@ -53,22 +53,20 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public TeamSoap createTeam(TeamSoap newTeamSoap) {
 		
-		TeamEntity newTeamEntity = teamConvertor.convertToEntityFormat(newTeamSoap);
+		TeamEntity newTeamEntity = this.teamConvertor.convertToEntityFormat(newTeamSoap);
 		
 		for(PlayerTeamEntity playerTeamEntity : newTeamEntity.getPlayers()) {
 			this.playerRepository.save(playerTeamEntity.getPlayer());
 		}
 		
 		TeamEntity teamSaved = this.teamRepository.save(newTeamEntity);
-		return teamConvertor.convertToSoapFormat(teamSaved);
+		return this.teamConvertor.convertToSoapFormat(teamSaved);
 	};
 	
 	@Override
 	public TeamSoap modifyTeam(TeamSoap modifiedTeamSoap, long teamId) {
 		
-		Long id = Long.valueOf(teamId);
-		
-		TeamEntity team = this.teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException(id));
+		TeamEntity team = this.teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException(teamId));
 		
 		if (team != null) {
 			
@@ -80,10 +78,10 @@ public class TeamServiceImpl implements TeamService{
 
 			TeamEntity modifiedTeamSaved = this.teamRepository.save(modifiedTeamEntity);
 			System.out.println("team modifed: " + modifiedTeamSaved.getType());
-			return teamConvertor.convertToSoapFormat(modifiedTeamSaved);
+			return this.teamConvertor.convertToSoapFormat(modifiedTeamSaved);
 		}
 		
-		return teamConvertor.convertToSoapFormat(this.teamRepository.save(team));
+		return this.teamConvertor.convertToSoapFormat(team);
 	};
 	
 	@Override
@@ -95,7 +93,7 @@ public class TeamServiceImpl implements TeamService{
 			this.teamRepository.deleteById(teamId);
 			return "Deletion succesful";
 		}
-		return "Deletion failed";
+		return "Team not Found";
 	}
 
 }

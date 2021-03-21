@@ -21,8 +21,8 @@ public class PlayerTeamTransformer {
 		
 		PlayerSoapInfo playerSoapInfo = new PlayerSoapInfo();
 		
-		int pid = (int)(long)playerTeamEntity.getPlayer().getId();
-		playerSoapInfo.setPid(pid);
+		int pId = (int)(long)playerTeamEntity.getPlayer().getId();
+		playerSoapInfo.setPid(pId);
 		playerSoapInfo.setName(playerTeamEntity.getPlayer().getName());
 		playerSoapInfo.setAge(playerTeamEntity.getPlayer().getAge());
 		playerSoapInfo.setCitizenship(playerTeamEntity.getPlayer().getCitizenship());
