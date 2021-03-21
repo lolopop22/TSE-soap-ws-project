@@ -54,7 +54,11 @@ public class TeamEntity {
 		player.setTeam(this);
 	}
 	
-	public TeamEntity(String name, String country, String type, String captain, List<PlayerTeamEntity> players){
+	public TeamEntity(long id, String name, String country, String type, String captain, List<PlayerTeamEntity> players){
+		if(id != 0) {
+			this.id = id;  //ceci me permet en quelque sorte de modifier une équipe qui existe déjà en base
+							//si on passe en paramètre id=0 alors l'équipe sera crée en dans la bdd.
+		}
 		this.name = name;
 		this.country = country;
 		this.type = type;

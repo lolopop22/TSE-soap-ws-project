@@ -15,20 +15,21 @@
 
     <xs:complexType name="teamSoapInfo">
     	<xs:sequence>
+    		<xs:element name="tId" type="xs:int"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="country" type="xs:string"/>
             <xs:element name="type" type="xs:string"/>
             <xs:element name="captain" type="xs:string"/>
-             <xs:sequence>
-        		<xs:element name="players" type="teams:playerTeamSoap" maxOccurs="unbounded"/>
-    		</xs:sequence>
         </xs:sequence>
     </xs:complexType>
     
     <xs:complexType name="teamSoap">
         <xs:sequence>
-        	<xs:element name="tid" type="xs:int"/>
+        	<xs:element name="tId" type="xs:int"/>
             <xs:element name="teamSoapInfo" type="teams:teamSoapInfo"/>
+             <xs:sequence>
+        		<xs:element name="players" type="teams:playerTeamSoap" maxOccurs="unbounded"/>
+    		</xs:sequence>
         </xs:sequence>
     </xs:complexType>
 	
@@ -51,7 +52,7 @@
     <xs:element name="createTeamRequest">
         <xs:complexType>
             <xs:sequence>
-            	<xs:element name="teamSoapInfo" type="teams:teamSoapInfo"/>
+            	<xs:element name="teamSoap" type="teams:teamSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -83,7 +84,7 @@
     <xs:element name="deleteTeamRequest">
         <xs:complexType>
             <xs:sequence>
-            	<xs:element name="tid" type="xs:int"/>
+            	<xs:element name="tId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

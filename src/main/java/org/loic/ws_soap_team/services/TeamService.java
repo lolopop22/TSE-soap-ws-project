@@ -7,9 +7,9 @@ public interface TeamService {
 	
 	public TeamSoap findTeam(long teamId);
 
-	public TeamSoap createTeam(TeamSoapInfo teamSoapInfo);
+	public TeamSoap createTeam(TeamSoap newTeamSoap);
 
-	public TeamSoap modifyTeam(TeamSoap newTeamSoap);
+	public TeamSoap modifyTeam(TeamSoap teamSoap, long teamId);
 
 	public String deleteTeam(Long teamId);
 

@@ -22,14 +22,29 @@ public class WebServiceConfig {
 		return new SimpleXsdSchema(new ClassPathResource("/xsdFiles/teams.xsd"));
 	}
 	
+	@Bean
+	public XsdSchema playersSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("/xsdFiles/players.xsd"));
+	}
+	
 	@Bean(name = "teams")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema teamsSchema) {
+	public DefaultWsdl11Definition defaultTeamsWsdl11Definition(XsdSchema teamsSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("TeamsPort");
 		wsdl11Definition.setLocationUri("/ws");
 		wsdl11Definition.setTargetNamespace("http://loic.org/ws/components");
 		wsdl11Definition.setSchema(teamsSchema);
-		System.out.print(teamsSchema + "\n");
+		return wsdl11Definition;
+	}
+	
+	@Bean(name = "players")
+	public DefaultWsdl11Definition defaultPlayersWsdl11Definition(XsdSchema playersSchema) {
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("PlayersPort");
+		wsdl11Definition.setLocationUri("/ws");
+		wsdl11Definition.setTargetNamespace("http://loic.org/ws/components");
+		wsdl11Definition.setSchema(playersSchema);
+		System.out.print(playersSchema + "\n");
 		return wsdl11Definition;
 	}
 	

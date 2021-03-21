@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlayerTransformer {
 	
-	public PlayerSoap convertToSoapFormat(PlayerEntity playerEntity, PlayerSoap playerSoap) {
+	public PlayerSoap convertToSoapFormat(PlayerEntity playerEntity) {
 		
+		PlayerSoap playerSoap = new PlayerSoap();
 		PlayerSoapInfo playerSoapInfo = new PlayerSoapInfo();
 		
-		int id = (int)(long)playerEntity.getId();
+		int pId = (int)(long)playerEntity.getId();
 		
-		playerSoap.setPid(id);
+		if(pId != 0) {
+			playerSoap.setPid(pId);
+		}
 		
 		playerSoapInfo.setName(playerEntity.getName());
 		playerSoapInfo.setAge(playerEntity.getAge());
@@ -26,11 +29,23 @@ public class PlayerTransformer {
 		
 	}
 	
-	public PlayerEntity convertToEntityFormat(PlayerSoapInfo playerSoapInfo, PlayerEntity playerEntity) {
+	public PlayerEntity convertToEntityFormat(PlayerSoapInfo playerSoapInfo) {
 		
-		playerEntity.setAge(playerSoapInfo.getAge());
-		playerEntity.setCitizenship(playerSoapInfo.getCitizenship());
-		playerEntity.setName(playerSoapInfo.getName());
+		Long pId = Long.valueOf(playerSoapInfo.getPid());
+		int age = playerSoapInfo.getAge();
+		String citizenship = playerSoapInfo.getCitizenship();
+		String name = playerSoapInfo.getName();
+		
+		PlayerEntity playerEntity = new PlayerEntity();
+		
+		if(pId != 0) {
+			playerEntity.setId(pId);
+		}
+		
+		//playerEntity.setId(pId);
+		playerEntity.setAge(age);
+		playerEntity.setCitizenship(citizenship);
+		playerEntity.setName(name);
 		
 		return playerEntity;
 	}

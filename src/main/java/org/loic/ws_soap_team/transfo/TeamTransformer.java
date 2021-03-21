@@ -1,11 +1,13 @@
 package org.loic.ws_soap_team.transfo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.loic.ws.components.PlayerTeamSoap;
 import org.loic.ws.components.TeamSoap;
 import org.loic.ws.components.TeamSoapInfo;
-import org.loic.ws_soap_team.domains.PlayerEntity;
 import org.loic.ws_soap_team.domains.PlayerTeamEntity;
 import org.loic.ws_soap_team.domains.TeamEntity;
 
@@ -17,27 +19,27 @@ public class TeamTransformer {
 	@Autowired
 	private PlayerTeamTransformer playerTeamConvertor;
 	
-	@Autowired
-	private PlayerTransformer playerConvertor;
-	
-	public TeamSoap convertToSoapFormat(TeamEntity teamEntity, TeamSoap teamSoap) {
+	public TeamSoap convertToSoapFormat(TeamEntity teamEntity) {
+		
+		TeamSoap teamSoap = new TeamSoap();
 		
 		TeamSoapInfo teamSoapInfo = new TeamSoapInfo();
 		
-		int id = (int)(long)teamEntity.getId();
-		teamSoap.setTid(id);
+		int tId = (int)(long)teamEntity.getId();
+		teamSoap.setTId(tId);
 		
+		teamSoapInfo.setTId(tId);
 		teamSoapInfo.setName(teamEntity.getName());
 		teamSoapInfo.setCountry(teamEntity.getCountry());
 		teamSoapInfo.setType(teamEntity.getType());
 		teamSoapInfo.setCaptain(teamEntity.getCaptain());
+		
 		if(teamEntity.getPlayers() != null) {
 			for(PlayerTeamEntity player : teamEntity.getPlayers()) {
-				PlayerTeamSoap playerTeamSoap = new PlayerTeamSoap();
-				teamSoapInfo.getPlayers().add(this.playerTeamConvertor.convertToSoapFormat(player, playerTeamSoap));
+				//PlayerTeamSoap playerTeamSoap = new PlayerTeamSoap();
+				teamSoap.getPlayers().add(this.playerTeamConvertor.convertToSoapFormat(player));
 			}
 		}
-		
 		
 		teamSoap.setTeamSoapInfo(teamSoapInfo);
 		
@@ -45,39 +47,26 @@ public class TeamTransformer {
 		
 	}
 
-	public TeamEntity convertToEntityFormat(TeamSoapInfo teamSoapInfo, TeamEntity teamEntity) {
-
-		String name = teamSoapInfo.getName();
-		String country = teamSoapInfo.getCountry();
-		String type = teamSoapInfo.getType();
-		String captain = teamSoapInfo.getCaptain();
+	public TeamEntity convertToEntityFormat(TeamSoap teamSoap) {
 		
-		if (name != null) {
-			teamEntity.setName(name);
-		}
-		if (country != null) {
-			teamEntity.setCountry(country);
-		}
-		if (type != null) {
-			teamEntity.setType(type);
-		}
-		if (captain != null) {
-			teamEntity.setCaptain(captain);
-		}
+		long tId = Long.valueOf(teamSoap.getTId());
+		String name = teamSoap.getTeamSoapInfo().getName();
+		String country = teamSoap.getTeamSoapInfo().getCountry();
+		String type = teamSoap.getTeamSoapInfo().getType();
+		String captain = teamSoap.getTeamSoapInfo().getCaptain();
 		
-		if(teamSoapInfo.getPlayers() != null) {
-			for(PlayerTeamSoap playerSoap : teamSoapInfo.getPlayers()) {
-				String position = playerSoap.getPosition();
-				PlayerEntity playerEntity = new PlayerEntity();
-				
-				this.playerConvertor.convertToEntityFormat(playerSoap.getPlayerSoapInfo(), playerEntity);
-				
-				PlayerTeamEntity playerTeamEntity = new PlayerTeamEntity(playerEntity, position);
-				teamEntity.getPlayers().add(playerTeamEntity);
+		List<PlayerTeamEntity> newPlayers = new ArrayList<>();
+		
+		if(teamSoap.getPlayers() != null) {
+			for(PlayerTeamSoap playerTeamSoap : teamSoap.getPlayers()) {
+				PlayerTeamEntity playerTeamEntity = this.playerTeamConvertor.convertToEntityFormat(playerTeamSoap);				
+				newPlayers.add(playerTeamEntity);
 			}
 		}
 		
+		TeamEntity teamEntity = new TeamEntity(tId, name, country, type, captain, newPlayers);
 		return teamEntity;
 	}
+	
 
 }

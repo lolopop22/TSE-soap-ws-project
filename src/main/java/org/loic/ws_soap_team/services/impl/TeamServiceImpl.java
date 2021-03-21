@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.loic.ws.components.TeamSoap;
-import org.loic.ws.components.TeamSoapInfo;
 import org.loic.ws_soap_team.dao.PlayerRepository;
 import org.loic.ws_soap_team.dao.TeamRepository;
 import org.loic.ws_soap_team.domains.PlayerTeamEntity;
@@ -44,44 +43,47 @@ public class TeamServiceImpl implements TeamService{
 		System.out.println("team found in team sevice impl: " + teamEntity);
 		
 		if (teamEntity != null) {
-			TeamSoap teamSoap = new TeamSoap();
-			return teamConvertor.convertToSoapFormat(teamEntity, teamSoap);
+			TeamSoap teamSoap = teamConvertor.convertToSoapFormat(teamEntity);
+			return teamSoap;
 		}
 		
 		return null;
 	}
 	
 	@Override
-	public TeamSoap createTeam(TeamSoapInfo teamSoapInfo) {
+	public TeamSoap createTeam(TeamSoap newTeamSoap) {
 		
-		TeamEntity newTeamEntity = new TeamEntity();
-		teamConvertor.convertToEntityFormat(teamSoapInfo, newTeamEntity);
+		TeamEntity newTeamEntity = teamConvertor.convertToEntityFormat(newTeamSoap);
 		
 		for(PlayerTeamEntity playerTeamEntity : newTeamEntity.getPlayers()) {
 			this.playerRepository.save(playerTeamEntity.getPlayer());
 		}
 		
 		TeamEntity teamSaved = this.teamRepository.save(newTeamEntity);
-		TeamSoap teamSoap = new TeamSoap();
-		return teamConvertor.convertToSoapFormat(teamSaved, teamSoap);
+		return teamConvertor.convertToSoapFormat(teamSaved);
 	};
 	
 	@Override
-	public TeamSoap modifyTeam(TeamSoap newTeamSoap) {
+	public TeamSoap modifyTeam(TeamSoap modifiedTeamSoap, long teamId) {
 		
-		Long id = Long.valueOf(newTeamSoap.getTid());
+		Long id = Long.valueOf(teamId);
+		
 		TeamEntity team = this.teamRepository.findById(id).orElseThrow(() -> new TeamNotFoundException(id));
-		teamConvertor.convertToEntityFormat(newTeamSoap.getTeamSoapInfo(), team);
 		
 		if (team != null) {
-			for(PlayerTeamEntity playerTeamEntity : team.getPlayers()) {
+			
+			TeamEntity modifiedTeamEntity = this.teamConvertor.convertToEntityFormat(modifiedTeamSoap);
+			
+			for(PlayerTeamEntity playerTeamEntity : modifiedTeamEntity.getPlayers()) {
 				this.playerRepository.save(playerTeamEntity.getPlayer());
 			}
-			
-			return teamConvertor.convertToSoapFormat(this.teamRepository.save(team), newTeamSoap);
+
+			TeamEntity modifiedTeamSaved = this.teamRepository.save(modifiedTeamEntity);
+			System.out.println("team modifed: " + modifiedTeamSaved.getType());
+			return teamConvertor.convertToSoapFormat(modifiedTeamSaved);
 		}
 		
-		return teamConvertor.convertToSoapFormat(team, newTeamSoap);
+		return teamConvertor.convertToSoapFormat(this.teamRepository.save(team));
 	};
 	
 	@Override

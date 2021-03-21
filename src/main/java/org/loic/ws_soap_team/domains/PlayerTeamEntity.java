@@ -33,7 +33,7 @@ public class PlayerTeamEntity {
 	
 	String position;
 	
-	PlayerTeamEntity(){
+	public PlayerTeamEntity(){
 
 	}
 	

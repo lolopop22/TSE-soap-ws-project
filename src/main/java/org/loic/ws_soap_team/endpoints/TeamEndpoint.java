@@ -48,11 +48,11 @@ public class TeamEndpoint {
 	public CreateTeamResponse createTeam(@RequestPayload CreateTeamRequest request) {
 		
 		CreateTeamResponse response = new CreateTeamResponse();
-		System.out.println(request.getTeamSoapInfo().getName());
-		for (PlayerTeamSoap player : request.getTeamSoapInfo().getPlayers()) {
+		System.out.println(request.getTeamSoap().getTeamSoapInfo() .getName());
+		for (PlayerTeamSoap player : request.getTeamSoap().getPlayers()) {
 			System.out.println(player.getPlayerSoapInfo().getName());
 		}
-		response.setTeamSoap(teamService.createTeam(request.getTeamSoapInfo()));
+		response.setTeamSoap(teamService.createTeam(request.getTeamSoap()));
 		
 		return response;
 	}
@@ -62,7 +62,8 @@ public class TeamEndpoint {
 	public ModifyTeamResponse modifyTeam(@RequestPayload ModifyTeamRequest request) {
 		
 		ModifyTeamResponse response = new ModifyTeamResponse();
-		response.setTeamSoap(teamService.modifyTeam(request.getTeamSoap()));
+		Long id = Long.valueOf(request.getTeamSoap().getTId());
+		response.setTeamSoap(teamService.modifyTeam(request.getTeamSoap(), id));
 		
 		return response;
 	}
@@ -71,7 +72,7 @@ public class TeamEndpoint {
 	@ResponsePayload
 	public DeleteTeamResponse deleteTeam(@RequestPayload DeleteTeamRequest request) {
 		
-		long id = Long.valueOf(request.getTid());
+		long id = Long.valueOf(request.getTId());
 		DeleteTeamResponse response = new DeleteTeamResponse();
 		response.setDeleteResult(teamService.deleteTeam(id));
 		

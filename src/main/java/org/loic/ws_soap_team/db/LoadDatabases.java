@@ -22,10 +22,10 @@ public class LoadDatabases {
 		PlayerEntity player1 = new PlayerEntity("Neymar Jr", 28, "Brazillian");
 		PlayerEntity player2 = new PlayerEntity("Lionel Messi", 33, "Argentine");
 		
-		TeamEntity psg = new TeamEntity("Paris Saint Germain", "France", "Club", "Marquinhos",
+		TeamEntity psg = new TeamEntity(0, "Paris Saint Germain", "France", "Club", "Marquinhos",
 								Arrays.asList(  new PlayerTeamEntity(player1, "Ailier gauche")));
 		
-		TeamEntity argNationalTeam = new TeamEntity("La Albiceleste", "Argentina", "National team", "Lionel Messi",
+		TeamEntity argNationalTeam = new TeamEntity(0, "La Albiceleste", "Argentina", "National team", "Lionel Messi",
 								Arrays.asList(  new PlayerTeamEntity(player2, "Ailier droit")));
 
 		
