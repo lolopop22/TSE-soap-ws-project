@@ -1,4 +1,4 @@
-package org.loic.api_soap_team;
+package org.loic.ws_soap_team;
 
 public class TeamEndointsTest {
 

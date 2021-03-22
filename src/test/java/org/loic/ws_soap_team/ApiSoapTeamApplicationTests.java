@@ -1,10 +1,10 @@
-package org.loic.api_soap_team;
+package org.loic.ws_soap_team;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiSoapTeamApplicationTests {
+class TeamSoapWSApplicationTests {
 
 	@Test
 	void contextLoads() {
