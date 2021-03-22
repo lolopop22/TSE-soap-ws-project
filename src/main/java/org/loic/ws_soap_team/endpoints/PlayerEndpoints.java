@@ -18,7 +18,7 @@ import org.loic.ws.components.PlayerSoap;
 import org.loic.ws_soap_team.services.PlayerService;
 
 @Endpoint
-public class PlayerEndpoint {
+public class PlayerEndpoints {
 	
 	private static final String NAMESPACE_URI = "http://loic.org/ws/components";
 	

@@ -19,7 +19,7 @@ import org.loic.ws.components.TeamSoap;
 import org.loic.ws_soap_team.services.TeamService;
 
 @Endpoint
-public class TeamEndpoint {
+public class TeamEndpoints {
 	
 	private static final String NAMESPACE_URI = "http://loic.org/ws/components";
 	
