@@ -13,6 +13,11 @@ public class PlayerTransformer {
 	@Autowired
 	private TeamPlayerTransformer teamPlayerConvertor;
 	
+	/**
+	 * Permet de convertir une entité JPA joueur en son équivalent soap.
+	 * @param playerEntity le jouer sous le format gérable par JPA
+	 * @return le joueur sous le format soap
+	 */
 	public PlayerSoap convertToSoapFormat(PlayerEntity playerEntity) {
 		
 		PlayerSoap playerSoap = new PlayerSoap();
@@ -41,7 +46,11 @@ public class PlayerTransformer {
 		return playerSoap;
 		
 	}
-	
+	/**
+	 * Permet de convertir un joueur sous format SOAP en son équivalent JPA (entity).
+	 * @param playerSoapInfo les infos du joueur provenant du web service SOAP.
+	 * @return L'équivalent JPA du joueur SOAP.
+	 */
 	public PlayerEntity convertToEntityFormat(PlayerSoapInfo playerSoapInfo) {
 		
 		Long pId = Long.valueOf(playerSoapInfo.getPid());

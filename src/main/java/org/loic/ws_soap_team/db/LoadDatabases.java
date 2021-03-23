@@ -16,6 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoadDatabases {
 
+	
+	/**
+	 * Permet d'initialiser notre base de données h2.
+	 * @param teamRepository l'interface JPA qui gère les équipes
+	 * @param playerRepository l'interface JPA qui gère les joueurs
+	 * @return
+	 */
 	@Bean
 	CommandLineRunner initDatabases(TeamRepository teamRepository, PlayerRepository playerRepository) {
 		

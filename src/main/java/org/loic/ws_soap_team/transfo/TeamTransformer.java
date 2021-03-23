@@ -19,6 +19,11 @@ public class TeamTransformer {
 	@Autowired
 	private PlayerTeamTransformer playerTeamConvertor;
 	
+	/**
+	 * Permet de convertir une entité JPA équipe en son équivalent soap.
+	 * @param teamEntity l'équipe sous le format gérable par JPA.
+	 * @return L'équipe sous le format soap.
+	 */
 	public TeamSoap convertToSoapFormat(TeamEntity teamEntity) {
 		
 		TeamSoap teamSoap = new TeamSoap();
@@ -46,7 +51,11 @@ public class TeamTransformer {
 		return teamSoap;
 		
 	}
-
+	/**
+	 * Permet de convertir une équipe sous format SOAP équipe en son équivalent JPA (entity).
+	 * @param teamSoap L'équipe sous le format soap.
+	 * @return l'équipe sous le format gérable par JPA.
+	 */
 	public TeamEntity convertToEntityFormat(TeamSoap teamSoap) {
 		
 		long tId = Long.valueOf(teamSoap.getTId());
